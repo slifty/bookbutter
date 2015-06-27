@@ -1,0 +1,1 @@
+A repository manages the persistence and retrieval of data.

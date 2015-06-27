@@ -1,0 +1,1 @@
+Jade templates go here.

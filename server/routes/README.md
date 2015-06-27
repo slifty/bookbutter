@@ -1,0 +1,1 @@
+A route receives a request, calls necessary dependencies, formulates a response, and sends it.
