@@ -8,7 +8,7 @@ response:
 
 [{
   id: 123,
-  name: 'Sherlock Holmes',
+  title: 'Sherlock Holmes',
   description: 'A guy figures things out.',
   sampleText: 'Blah blah blah blah',
   chapters: 23,
