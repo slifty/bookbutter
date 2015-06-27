@@ -36,12 +36,14 @@ class Books
         applicableLeaves = _.filter(book.leaves, (leaf) -> filter[leaf.chapter]? )
         group = @group()
         @id = uuid.v1()
+        order = 0
         for applicableLeaf in applicableLeaves
           leaf = new Summaries
             text: applicableLeaf.text
             compression: 0
             summaryId: @id
             bookId: req.params.id
+            order: order++
           leaf.save group()
         return
       (err, summaries) ->

@@ -1,6 +1,7 @@
 express = require 'express'
 http = require 'http'
 books = require './routes/books'
+summaries = require './routes/summaries'
 
 app = express()
 
@@ -12,5 +13,6 @@ app.configure ->
 server = http.createServer app
 
 books.init app
+summaries.init app
 
 server.listen 3000

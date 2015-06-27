@@ -41,31 +41,27 @@ response:
 /summaries?fields= GET // fields define which fields should be returned
 
 [{
-  bookId: 123,
-  maxCompression: 0.25, 
-  compression: 0.25,
-  text: null
+  bookId: 123
 }, {
-  bookId: 1234,
-  maxCompression: 0.25, 
-  compression: 0.25,
-  text: null
+  bookId: 1234
 }, {
-  bookId: 123,
-  maxCompression: 0.25, 
-  compression: 0.25,
-  text: null
+  bookId: 123
 }]
 
-/summaries/#{summaryId}?compression=<=50% GET // compression is optional and defaults to 0%
+/summaries/#{summaryId} GET
 
 response:
 
 {
-  bookId: 123,
-  maxCompression: 0.25, 
-  compression: 0.25,
-  text: "Blah blah blah" // the most compressed version that is <= to `compression`
+  bookId: 123, 
+  paragraphs: [{
+    compression: 0.00,
+    id: 12
+    parent: {
+      compression: 0.05,
+      id: 123
+    }
+  }]
 }
 
 /jobs GET
