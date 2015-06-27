@@ -1,0 +1,19 @@
+extends layouts/main.jade
+
+block head
+  script(src='static/script/write.js')
+
+block content
+  div#original
+
+  div#instructions
+
+  form
+    textarea#summary
+    div#status
+      div#tooShort
+      div#tooLong
+      div#justRight
+        button#done I'm Done!
+    div#progress
+

@@ -13,7 +13,7 @@ app.configure ->
 app.set 'view engine', 'jade'
 app.set 'views', __dirname + '/views'
 
-console.log __dirname + '/views'
+app.use '/static', express.static 'dist/client'
 
 server = http.createServer app
 
