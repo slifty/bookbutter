@@ -1,6 +1,14 @@
 mongoose = require 'mongoose'
 Schema = mongoose.Schema
 
+Leaf = new Schema
+  text:
+    type: String
+    required: true
+  chapter:
+    type: Number
+    required: true
+
 Book = new Schema
   title:
     type: String
@@ -12,7 +20,7 @@ Book = new Schema
     type: String
     required: true
   leaves:
-    type: [String]
+    type: [Leaf]
     required: true
   chapters:
     type: Number
