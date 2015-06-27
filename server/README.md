@@ -18,7 +18,7 @@ response:
   ...
 }]
 
-/books/#{bookId}
+/books/#{id}
 
 {
   id: 123,
@@ -30,7 +30,7 @@ response:
   screenshot: 'https://www.example.com/book.jpeg'
 }
 
-/books/start?bookId=4&chapters=1,2,3 POST // chapters is optional and defaults to every one
+/books/#{id}/start?chapters=1,2,3 POST // chapters is optional and defaults to every one
 
 response: 
 
