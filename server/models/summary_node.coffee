@@ -15,5 +15,8 @@ summaryNode = new Schema
   summaryId:
     type: String
     required: true
+  bookId:
+    type: ObjectId
+    required: true
 
 module.exports = mongoose.model 'SummaryNode', summaryNode

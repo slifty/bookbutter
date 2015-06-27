@@ -41,6 +41,7 @@ class Books
             text: applicableLeaf.text
             compression: 0
             summaryId: @id
+            bookId: req.params.id
           leaf.save group()
         return
       (err, summaries) ->
