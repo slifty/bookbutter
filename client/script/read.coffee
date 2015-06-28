@@ -48,7 +48,7 @@ $ () ->
     heights = [[],[],[],[],[],[],[],[],[]]
     for node in summary
       height = node.height
-      order = node.order
+      order = Math.floor(node.order)
       heights[height][order] = node
 
     # Get base compression
