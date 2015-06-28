@@ -60,7 +60,7 @@ $ () ->
 
         $("#original")
         .height textHeight
-        $("#fouc").show()
+        $("#summaryText").focus()
       )
 
   tooShort = .9
