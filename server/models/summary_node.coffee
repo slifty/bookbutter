@@ -29,5 +29,8 @@ summaryNode = new Schema
   maxHeight:
     type: Number
     required: true
+  jobExecutionTimestamp:
+    type: Date
+    required: false
 
 module.exports = mongoose.model 'SummaryNode', summaryNode

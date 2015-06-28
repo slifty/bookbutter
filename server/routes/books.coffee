@@ -1,4 +1,5 @@
-BooksModel = require '../models/book'
+BooksModelModule = require '../models/book'
+BooksModel = BooksModelModule.Book
 Summaries = require '../models/summary_node'
 Step = require 'step'
 _ = require 'lodash'

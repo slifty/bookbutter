@@ -26,7 +26,10 @@ class Summaries
       (err, summaryNodes) ->
         if err then return next err
         graph = Summaries._buildGraph(summaryNodes)
-        jobs = Summaries._getJobs(graph)
+        Summaries._getJobs(graph, @)
+        return
+      (err, jobs) ->
+        if err then return next err
         res.json jobs
     )
 
@@ -81,7 +84,7 @@ class Summaries
     )
 
 
-  @_getJobs: (graph) ->
+  @_getJobs: (graph, callback) ->
     # use iterative deepening to find the first level with two nodes that do not have parents
     level = 0
     paragraphs = graph
@@ -89,12 +92,14 @@ class Summaries
     jobIds = {}
     while jobs.length < 2
       # if next level is empty, no more jobs
-      if _.isEmpty(paragraphs) then return []
+      if _.isEmpty(paragraphs) then return callback(null, [])
 
       children = []
       for paragraph in paragraphs
         if not paragraph.parentId? and not jobIds[paragraph._id.toString()]
-          jobs.push paragraph
+          # if this was already given as a job within the past 30 mins we should choose a different job
+          if not paragraph.jobExecutionTimestamp? or Date.now() - paragraph.jobExecutionTimestamp > 1000 * 60 * 30
+            jobs.push paragraph
           jobIds[paragraph._id.toString()] = true
         else if paragraph?.parent
           children.push paragraph.parent
@@ -102,11 +107,25 @@ class Summaries
           # do nothing
 
       # if current level complete and can't find two jobs, must be root
-      if jobs.length is 1 then return []
+      if jobs.length is 1 then return callback(null, [])
 
       paragraphs = paragraphs.concat(children)
-
-    return [ jobs[0], jobs[1] ]
+    
+    jobsToUpdate = [ jobs[0], jobs[1] ]
+    Step(
+      ->
+        group = @group()
+        for summaryNodeItem in jobsToUpdate
+          SummariesModel.findByIdAndUpdate summaryNodeItem._id, {
+            $set: {
+              jobExecutionTimestamp: Date.now()
+            }
+          }, group()
+        return
+      (err, summaryNodes) ->
+        if err then callback(err)
+        return callback(null, summaryNodes)
+    )
 
 
   @_buildGraph: (summaryNodes) ->
