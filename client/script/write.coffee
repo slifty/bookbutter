@@ -1,5 +1,38 @@
 
 $ () ->
+
+  # THIS IS A HACK
+
+  $.get('books')
+    .done (books) ->
+      if books.length == 0
+        alert "there aren't any books yet"
+        return
+
+      book = books[0]
+      $.get('summaries')
+        .done (summaries) ->
+          summaryId = 0
+          console.log(summaries)
+          for summary in summaries
+            if book._id == summary.bookId
+              summaryId = summary._id
+          if summaryId == 0
+            $.post('/books/' + book._id + '/start')
+              .done (response) ->
+                summaryId = response.summaryId
+                prepareJobs summaryId
+          else
+            prepareJobs summaryId
+
+
+  # HACK IS OVER
+
+  prepareJobs = (summaryId) ->
+    $.get('/summaries/' + summaryId + '/jobs')
+      .done (parts) ->
+        console.log(parts)
+
   textLength = 900
   targetLength = textLength / 2
   tooShort = .9
@@ -9,7 +42,7 @@ $ () ->
     strokeWidth: 10
     trailWidth: 1
     from:
-      width: 2
+      width: 10
     to:
       width: 10
     step: (state, circle) ->
@@ -24,7 +57,6 @@ $ () ->
 
 
   $('#summaryText').keyup () ->
-    console.log("TEST")
     length = $(this).val().length
     ratio = length / targetLength
     circle.set ratio

@@ -14,6 +14,7 @@ class Summaries
       if err then return next err
       result = _.map(summaries, (summary) ->
         return {
+          _id: summary.summaryId
           bookId: summary.bookId
         })
       res.json result
@@ -110,7 +111,7 @@ class Summaries
       if jobs.length is 1 then return callback(null, [])
 
       paragraphs = paragraphs.concat(children)
-    
+
     jobsToUpdate = [ jobs[0], jobs[1] ]
     Step(
       ->
