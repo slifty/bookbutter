@@ -5,8 +5,18 @@ _ = require 'lodash'
 class Summaries
   @init: (app) ->
     app.get '/summaries/:id', @get
+    app.get '/summaries', @find
     app.get '/summaries/:id/jobs', @getJobs
     app.post '/summaries/:id/jobs/summarize', @summarize
+
+  @find: (req, res, next) ->
+    SummariesModel.find { }, (err, summaries) ->
+      if err then return next err
+      result = _.map(summaries, (summary) ->
+        return {
+          bookId: summary.bookId
+        })
+      res.json result
 
   @getJobs: (req, res, next) ->
     Step(
@@ -15,11 +25,8 @@ class Summaries
         return
       (err, summaryNodes) ->
         if err then return next err
-        try
-          graph = Summaries._buildGraph(summaryNodes)
-          jobs = Summaries._getJobs(graph)
-        catch e
-          console.log e
+        graph = Summaries._buildGraph(summaryNodes)
+        jobs = Summaries._getJobs(graph)
         res.json jobs
     )
 

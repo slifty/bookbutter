@@ -38,7 +38,7 @@ response:
   summaryId: 1
 }
 
-/summaries?fields= GET // fields define which fields should be returned
+/summaries GET # does not return paragraphs
 
 [{
   bookId: 123
