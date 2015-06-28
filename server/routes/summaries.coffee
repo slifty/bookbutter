@@ -41,7 +41,7 @@ class Summaries
         return
       (err, summaryNodes) ->
         if err then return next err
-        res.json Summaries._buildGraph(summaryNodes)
+        res.json summaryNodes
     )
 
   @summarize: (req, res, next) ->
@@ -60,7 +60,7 @@ class Summaries
 
         newSummary = new SummariesModel(
           text: req.body.text
-          compression: (@summaryNodes[0].height + 1) / (@summaryNodes[0].maxHeight)
+          compression: 100 / (@summaryNodes[0].height + 1) / (@summaryNodes[0].maxHeight)
           summaryId: @summaryNodes[0].summaryId
           bookId: @summaryNodes[0].bookId
           order: 0
