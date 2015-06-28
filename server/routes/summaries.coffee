@@ -98,8 +98,8 @@ class Summaries
       children = []
       for paragraph in paragraphs
         if not paragraph.parentId? and not jobIds[paragraph._id.toString()]
-          # if this was already given as a job within the past 30 mins we should choose a different job
-          if not paragraph.jobExecutionTimestamp? or Date.now() - paragraph.jobExecutionTimestamp > 1000 * 60 * 30
+          # if this was already given as a job within the past 15 mins we should choose a different job
+          if not paragraph.jobExecutionTimestamp? or Date.now() - paragraph.jobExecutionTimestamp > 1000 * 60 * 20
             jobs.push paragraph
           jobIds[paragraph._id.toString()] = true
         else if paragraph?.parent
@@ -110,8 +110,7 @@ class Summaries
       # if current level complete and can't find two jobs, must be root
       if jobs.length is 1 then return callback(null, [])
 
-      paragraphs = paragraphs.concat(children)
-
+      paragraphs = children
     jobsToUpdate = [ jobs[0], jobs[1] ]
     Step(
       ->
