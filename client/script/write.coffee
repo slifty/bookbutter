@@ -34,7 +34,7 @@ $ () ->
     $.get('/summaries/' + summaryId + '/jobs')
       .done((parts) ->
         text = parts[0].text + parts[1].text
-        usedParts = [parts[0]._id, parts[0]._id]
+        usedParts = [parts[0]._id, parts[1]._id]
         textLength = text.length
         targetLength = textLength / 2
         paragraphs = text.split /[\n\r]+/
