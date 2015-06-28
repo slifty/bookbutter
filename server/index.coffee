@@ -14,6 +14,7 @@ app.set 'view engine', 'jade'
 app.set 'views', __dirname + '/views'
 
 app.use '/static', express.static 'dist/client'
+app.use '/static/lib', express.static 'bower_components'
 
 server = http.createServer app
 
