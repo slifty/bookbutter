@@ -1,13 +1,27 @@
 extends layouts/main.jade
 
 block head
+  link(href='static/styles/read.css', rel='stylesheet', type='text/css')
   script(src='static/script/read.js')
 
 block content
-  div#infoPane
-    div#compression
-    div#slider
+  div#readContainer
+    div#infoPane
+      div#compression
+        div#integrityLevel.select-style
+          select#integrityLevelSelect
+            option(value="100") 100%
+            option(value="90") 90%
+            option(value="80") 80%
+            option(value="70") 70%
+            option(value="60") 60%
+            option(value="50") 50%
+            option(value="40") 40%
+            option(value="30") 30%
+            option(value="20") 20%
+            option(value="10") 10%
+            option(value="0") 0%
 
-  div#bookContent
-    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec felis est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse hendrerit dolor non velit sollicitudin cursus. Integer gravida laoreet eros, nec dapibus risus cursus eget. Nulla risus orci, porttitor eget blandit non, hendrerit sed purus. Suspendisse accumsan et quam nec ultrices. Phasellus sit amet accumsan arcu, a dictum sapien. Praesent eget tellus id augue commodo placerat quis non mauris. Suspendisse egestas vel augue in auctor. Curabitur porta justo purus, at lobortis sem fermentum id. Pellentesque id est magna.
-    p Sed aliquet arcu sit amet magna aliquam, a pellentesque dolor aliquet. Curabitur vel purus eget erat tempus pretium et et arcu. Maecenas luctus volutpat pulvinar. Mauris vitae orci ipsum. Integer et rhoncus elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet justo congue, vestibulum magna in, tristique nulla. Sed dignissim id odio eu varius. Fusce et dui massa.
+    div#bookContent
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec felis est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse hendrerit dolor non velit sollicitudin cursus. Integer gravida laoreet eros, nec dapibus risus cursus eget. Nulla risus orci, porttitor eget blandit non, hendrerit sed purus. Suspendisse accumsan et quam nec ultrices. Phasellus sit amet accumsan arcu, a dictum sapien. Praesent eget tellus id augue commodo placerat quis non mauris. Suspendisse egestas vel augue in auctor. Curabitur porta justo purus, at lobortis sem fermentum id. Pellentesque id est magna.
+      p Sed aliquet arcu sit amet magna aliquam, a pellentesque dolor aliquet. Curabitur vel purus eget erat tempus pretium et et arcu. Maecenas luctus volutpat pulvinar. Mauris vitae orci ipsum. Integer et rhoncus elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet justo congue, vestibulum magna in, tristique nulla. Sed dignissim id odio eu varius. Fusce et dui massa.
