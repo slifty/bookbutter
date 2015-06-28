@@ -32,6 +32,6 @@
   },
   "private": "true",
   "scripts": {
-    "start": "grunt watch"
+    "start": "npm install -g grunt-cli && npm install -g supervisor && grunt watch"
   }
 }
