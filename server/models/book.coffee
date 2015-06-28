@@ -29,7 +29,7 @@ Book = new Schema
     type: Number
     required: true
 
-module.exports = 
+module.exports =
    Book: mongoose.model 'Book', Book
    Leaf: mongoose.model 'Leaf', Leaf
 
