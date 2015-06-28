@@ -1,6 +1,11 @@
 
 $ () ->
 
+  usedParts = []
+  summaryId = 0
+  textLength = 900
+  targetLength = textLength / 2
+
   # THIS IS A HACK
 
   $.get('books')
@@ -12,8 +17,6 @@ $ () ->
       book = books[0]
       $.get('summaries')
         .done (summaries) ->
-          summaryId = 0
-          console.log(summaries)
           for summary in summaries
             if book._id == summary.bookId
               summaryId = summary._id
@@ -25,16 +28,41 @@ $ () ->
           else
             prepareJobs summaryId
 
-
   # HACK IS OVER
-
+  $("#fouc").hide()
   prepareJobs = (summaryId) ->
     $.get('/summaries/' + summaryId + '/jobs')
-      .done (parts) ->
-        console.log(parts)
+      .done((parts) ->
+        text = parts[0].text + parts[1].text
+        usedParts = [parts[0]._id, parts[0]._id]
+        textLength = text.length
+        targetLength = textLength / 2
+        paragraphs = text.split /[\n\r]+/
+        for paragraph in paragraphs
+          paragraphs[_i] = "<p>" + paragraph + "</p>"
 
-  textLength = 900
-  targetLength = textLength / 2
+        $("#fouc").show()
+        $("#original").html(paragraphs.join "")
+
+        textHeight = $("#original")[0].scrollHeight - 20
+        $("#instructionGraphic")
+        .height(textHeight / 2)
+        .css(
+          "border-top": textHeight / 4 + "px solid transparent"
+          "border-bottom": textHeight / 4 + "px solid transparent"
+        )
+        $("#summaryText")
+        .height(textHeight / 2 - 5)
+        $("#instructions")
+        .css(
+          "margin-top": textHeight / 4 - 30
+        )
+
+        $("#original")
+        .height textHeight
+        $("#fouc").show()
+      )
+
   tooShort = .9
   tooLong = 1.1
   circle = new ProgressBar.Circle '#progress',
@@ -78,4 +106,16 @@ $ () ->
   $('#tooShort').hide()
   $('#tooLong').hide()
   $('#justRight').hide()
+
+  $('#done').click () ->
+    summary = $('#summaryText').val()
+    u = usedParts.join()
+    $.post('/summaries/' + summaryId + '/jobs/summarize?ids=' + u,
+      text: summary)
+      .done () ->
+        location.reload()
+
+  $('form').submit () ->
+    return false
+
 

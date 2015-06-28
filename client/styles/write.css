@@ -5,11 +5,11 @@
 
 #original {
   width: 400px;
-  height: 500px;
   float: left;
   padding: 10px;
   background: #fff;
   border-radius: 5px;
+  overflow: auto;
 }
 
 #instructionGraphic {
@@ -28,8 +28,7 @@
   width: 405px;
 }
 #instructions {
-  height: 40px;
-  margin-top: 85px;
+  height: 30px;
 }
 #summaryText {
   margin-top: 10px;
