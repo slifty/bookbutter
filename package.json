@@ -32,6 +32,7 @@
   },
   "private": "true",
   "scripts": {
-    "start": "npm install -g grunt-cli && npm install -g supervisor && grunt watch"
+    "start": "npm install -g grunt-cli && npm install -g supervisor && grunt watch",
+    "postinstall": "npm install -g bower && bower install"
   }
 }
