@@ -64,7 +64,7 @@ response:
   }]
 }
 
-/jobs GET
+/summaries/#{summaryId}/jobs GET
 
 response:
 
@@ -76,7 +76,7 @@ response:
   id: 1234
 }]
 
-/jobs/summarize?ids=123,1234 POST
+/summaries/#{summaryId}/jobs/summarize?ids=123,1234 POST
 
 request:
 

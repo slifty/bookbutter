@@ -5,6 +5,19 @@ _ = require 'lodash'
 class Summaries
   @init: (app) ->
     app.get '/summaries/:id', @get
+    app.get '/summaries/:id/jobs', @getJobs
+
+  @getJobs: (req, res, next) ->
+    Step(
+      ->
+        SummariesModel.find { summaryId: req.params.id }, @
+        return
+      (err, summaryNodes) ->
+        if err then return next err
+        graph = Summaries._buildGraph(summaryNodes)
+        jobs = Summaries._getJobs(graph)
+        res.json jobs
+    )
 
   @get: (req, res, next) ->
     Step(
@@ -12,9 +25,29 @@ class Summaries
         SummariesModel.find { summaryId: req.params.id }, @
         return
       (err, summaryNodes) ->
-        throw err if err
+        if err then return next err
         res.json Summaries._buildGraph(summaryNodes)
     )
+
+  @_getJobs: (graph) ->
+    # use iterative deepening to find the first level with two nodes that do not have parents
+    level = 0
+    paragraphs = graph
+    jobs = []
+    while jobs.length < 2
+      # if next level is empty, no more jobs
+      if _.isEmpty(paragraphs) then return []
+
+      children = []
+      for paragraph in paragraphs
+        if not paragraph.parentId?
+          jobs.push paragraph
+        else
+          children.push paragraph.parent
+      paragraphs = paragraphs.concat(children)
+
+    return [ jobs[0], jobs[1] ]
+
 
   @_buildGraph: (summaryNodes) ->
     # leaf nodes have a compression of 0
