@@ -46,6 +46,11 @@ module.exports = (grunt) ->
             src: ['server/views/**']
             dest: 'dist/'
           }
+          {
+            expand: true
+            src: ['client/**']
+            dest: 'dist/'
+          }
         ]
       }
 

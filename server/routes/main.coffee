@@ -18,9 +18,9 @@ class Main
     res.render 'write', { title: 'Instant Classic' }
 
   @read: (req, res, next) ->
-    res.render 'browse', { title: 'Instant Classic' }
+    res.render 'read', { title: 'Instant Classic' }
 
   @browse: (req, res, next) ->
-    res.render 'read', { title: 'Instant Classic' }
+    res.render 'browse', { title: 'Instant Classic' }
 
 module.exports = Main

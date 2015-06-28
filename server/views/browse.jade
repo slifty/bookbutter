@@ -1,0 +1,14 @@
+extends layouts/main.jade
+
+block head
+  script(src='static/script/browse.js')
+
+block content
+  div#bookList
+
+  div#timeSelection
+    div#selectedBook
+    div#times
+      button#5min(value='5') 5 Minutes
+      button#15min(value='5') 15 Minutes
+      button#1hour(value='5') 1 hour
