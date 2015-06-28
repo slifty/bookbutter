@@ -1,0 +1,28 @@
+#readContainer {
+  margin: auto;
+}
+
+#infoPane {
+  position: fixed;
+  width: 100%;
+  background: #2c3e50;
+  height: 50px;
+  top: 0px;
+  left: 0px;
+}
+
+#bookContent {
+  margin: auto;
+  margin-top: 60px;
+  width: 80%;
+  max-width: 800px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+#integrityLevel {
+  float: right;
+  margin: 12px;
+  margin-right: 50px;
+}
