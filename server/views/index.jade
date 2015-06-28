@@ -1,7 +1,10 @@
 extends layouts/main.jade
 
+block head
+  link(href='static/styles/index.css', rel='stylesheet', type='text/css')
+
+
 block content
-  div
-    a(href='browse') Read
-  div
-    a(href='write') Write
+  div#navigation
+    a#read(href='browse').button Read
+    a#write(href='write').button Write

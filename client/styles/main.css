@@ -1,0 +1,23 @@
+body {
+  background: #ecf0f1;
+  font-family: 'Open Sans', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #3498db;
+}
+
+p {
+  margin: 5px;
+}
+
+h1,h2,h3,h4 {
+  margin: 0px;
+}
+
+textarea {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1em;
+  resize: none;
+}

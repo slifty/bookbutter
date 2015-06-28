@@ -1,0 +1,73 @@
+#writeContainer {
+  width: 950px;
+  margin: 50px auto;
+}
+
+#original {
+  width: 400px;
+  height: 500px;
+  float: left;
+  padding: 10px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+#instructionGraphic {
+  float: left;
+  border-left: 100px solid #7f8c8d;
+  border-top: 125px solid transparent;
+  border-bottom: 125px solid transparent;
+  height: 250px;
+  width: 0px;
+  margin: 10px;
+}
+
+
+#summary {
+  float: left;
+  width: 405px;
+}
+#instructions {
+  height: 40px;
+  margin-top: 85px;
+}
+#summaryText {
+  margin-top: 10px;
+  height: 245px;
+  width: 400px;
+}
+
+#status {
+  float: left;
+  width: 350px;
+  height: 30px;
+  margin: 0px 12px;
+}
+
+#progress {
+  float: left;
+  height: 30px;
+  width: 30px;
+}
+
+#status button {
+  width: 100%;
+  text-align: center;
+  border: 1px;
+  border-radius: 5px;
+  margin: 0px;
+  height: 30px;
+}
+
+button#short {
+  background: #dfe5e9;
+}
+button#long {
+  background: #dfe5e9;
+}
+button#done {
+  background: #2ecc71;
+  border: 1px solid #27ae60;
+  cursor: pointer;
+  color: #fff;
+}

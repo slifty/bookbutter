@@ -1,0 +1,21 @@
+#navigation {
+  width: 600px;
+  margin: 100px auto;
+}
+
+#navigation .button {
+  color: #ecf0f1;
+  display: block;
+  float: left;
+  width: 200px;
+  margin: 50px;
+  background: #2980b9;
+  text-align: center;
+  padding: 100px 0px;
+  border-radius: 25px;
+}
+
+#navigation #read {
+  background: #d35400;
+}
+#write {}
