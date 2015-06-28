@@ -39,7 +39,6 @@ class Books
         order = 0
         maxHeight = Math.ceil(Math.log(applicableLeaves.length))
 
-        console.log applicableLeaves.length % 2
         if applicableLeaves.length % 2 isnt 0
           # we need to create a parent for the last item
           parent = new Summaries
