@@ -6,6 +6,8 @@ summaryNode = new Schema
   ancestors:
     type: [ObjectId]
     default: []
+  parentId:
+    type: ObjectId
   text:
     type: String
     required: true
@@ -17,6 +19,15 @@ summaryNode = new Schema
     required: true
   bookId:
     type: ObjectId
+    required: true
+  order:
+    type: Number
+    required: true
+  height:
+    type: Number
+    required: true
+  maxHeight:
+    type: Number
     required: true
 
 module.exports = mongoose.model 'SummaryNode', summaryNode

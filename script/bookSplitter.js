@@ -56,7 +56,8 @@ var splitLargeBlocks = function(blocks) {
   return processedBlocks;
 }
 
-var splitBook = function(srcPath, destPath) {
+var splitBook = function(bookData, callback) {
+  var srcPath = bookData["filePath"];
   fs.readFile(srcPath, 'utf8', function (err, bookString) {
     if (err) {
       return console.log(err);
@@ -65,17 +66,7 @@ var splitBook = function(srcPath, destPath) {
     var blocks = breakIntoParagraphs(bookString);
     blocks = mergeSmallBlocks(blocks);
     blocks = splitLargeBlocks(blocks);
-    
-
-    //TODO return blocks instead of writing to a file
-    fs.writeFile(destPath, blocks.join("\n=============END OF BLOCK=============\n"), function(err) {
-      if (err) {
-          return console.log(err);
-      }
-
-      console.log("The file was saved!");
-    });
-
+    return callback(bookData, blocks)
   });
 }
 

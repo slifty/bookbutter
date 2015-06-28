@@ -1,6 +1,7 @@
 express = require 'express'
 http = require 'http'
 books = require './routes/books'
+summaries = require './routes/summaries'
 main = require './routes/main'
 
 app = express()
@@ -19,6 +20,7 @@ app.use '/static/lib', express.static 'bower_components'
 server = http.createServer app
 
 books.init app
+summaries.init app
 main.init app
 
-server.listen 3000
+server.listen(process.env.PORT || 3000)
