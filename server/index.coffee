@@ -23,4 +23,4 @@ books.init app
 summaries.init app
 main.init app
 
-server.listen 3000
+server.listen(process.env.PORT || 3000)
