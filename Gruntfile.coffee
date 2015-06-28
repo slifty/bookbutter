@@ -38,6 +38,22 @@ module.exports = (grunt) ->
           }
         ]
 
+    copy:
+      main: {
+        files: [
+          {
+            expand: true
+            src: ['server/views/**']
+            dest: 'dist/'
+          }
+          {
+            expand: true
+            src: ['client/**']
+            dest: 'dist/'
+          }
+        ]
+      }
+
     coffeelint:
       dist: ['Gruntfile.coffee']
       server:
@@ -62,6 +78,7 @@ module.exports = (grunt) ->
 
     grunt.registerTask 'watch', [
       'default',
+      'copy:main',
       'supervise',
       'regarde'
     ]

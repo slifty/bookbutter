@@ -1,0 +1,21 @@
+extends layouts/main.jade
+
+block head
+  script(src='static/script/browse.js')
+
+block content
+  h2 What do you want to read?
+  ul#bookList
+    li
+      div.cover
+        img(src="http://wannasmile.com/wp-content/uploads/2008/04/frog-butt.jpg")
+      div.title Sherlock Holmes
+
+  div#timeSelection
+  h2 How much time do you have?
+    div#selectedBook
+      img(src="http://wannasmile.com/wp-content/uploads/2008/04/frog-butt.jpg")
+    div#times
+      button#5min(value='5') 5 Minutes
+      button#15min(value='5') 15 Minutes
+      button#1hour(value='5') 1 hour

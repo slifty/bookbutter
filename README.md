@@ -20,3 +20,9 @@ How to get started
 
 5. grunt watch
 6. Point browser to localhost:3000
+
+
+Resources
+--------------------
+* Books: https://github.com/GITenberg/
+* Covers: https://www.dropbox.com/sh/2d823e986bq2bxh/AAA93siJtWzmtun_SFp0TArPa?dl=0
