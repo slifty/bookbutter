@@ -63,7 +63,7 @@ class Summaries
           compression: 100 / (@summaryNodes[0].height + 1) / (@summaryNodes[0].maxHeight)
           summaryId: @summaryNodes[0].summaryId
           bookId: @summaryNodes[0].bookId
-          order: 0
+          order: (@summaryNodes[0].order + @summaryNodes[1].order) / 2
           height: @summaryNodes[0].height + 1
           maxHeight: @summaryNodes[0].maxHeight
         )

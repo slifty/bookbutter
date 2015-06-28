@@ -1,11 +1,3 @@
-= THE ADVENTURES OF SHERLOCK HOLMES
-SIR ARTHUR CONAN DOYLE
-
-
-== ADVENTURE I. A SCANDAL IN BOHEMIA
-
-=== I.
-
 To Sherlock Holmes she is always _the_ woman. I have seldom heard him
 mention her under any other name. In his eyes she eclipses and
 predominates the whole of her sex. It was not that he felt any emotion
@@ -464,8 +456,6 @@ of the royal brougham rolled down the street. “If you will be good
 enough to call to-morrow afternoon at three o’clock I should like to
 chat this little matter over with you.”
 
-=== II.
-
 At three o’clock precisely I was at Baker Street, but Holmes had not
 yet returned. The landlady informed me that he had left the house
 shortly after eight o’clock in the morning. I sat down beside the fire,
@@ -912,8 +902,6 @@ appeared to come from a slim youth in an ulster who had hurried by.
 “I’ve heard that voice before,” said Holmes, staring down the dimly lit
 street. “Now, I wonder who the deuce that could have been.”
 
-=== III.
-
 I slept at Baker Street that night, and we were engaged upon our toast
 and coffee in the morning when the King of Bohemia rushed into the room.
 
@@ -1021,7 +1009,7 @@ photograph which he might care to possess; and I remain, dear Mr.
 Sherlock Holmes,
 
 
-“Very truly yours,              
+“Very truly yours,
 “IRENE NORTON, _ne_ ADLER.”
 
 
