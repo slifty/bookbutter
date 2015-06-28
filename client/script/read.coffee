@@ -88,18 +88,27 @@ $ () ->
     console.log base_level_index
     first = heights[base_level_index]
     second = heights[base_level_index + 1]
-    text = []
+    blocks = []
     counter = 0
 
     for level in compressionMatrix
       if level == base_level_index
-        text.push first[counter]
+        blocks.push first[counter]
       if level == base_level_index + 1
-        text.push second[Math.floor(counter / 2)]
+        blocks.push second[Math.floor(counter / 2)]
         counter++
       counter++
 
-    console.log text
+    textArray = []
+    for block in blocks
+      if block == undefined
+        continue
+      text = block.text
+      paragraphs = text.split /[\n\r]+/
+      for paragraph in paragraphs
+        textArray.push "<p>" + paragraph + "</p>"
+
+    $("#bookContent").html(textArray.join "")
 
 
   $("#integrityLevelSelect").change ()->
