@@ -37,6 +37,8 @@ class Books
         group = @group()
         @id = uuid.v1()
         order = 0
+        maxHeight = Math.ceil(Math.log(applicableLeaves.length))
+
         for applicableLeaf in applicableLeaves
           leaf = new Summaries
             text: applicableLeaf.text
@@ -44,6 +46,8 @@ class Books
             summaryId: @id
             bookId: req.params.id
             order: order++
+            height: 0
+            maxHeight: maxHeight
           leaf.save group()
         return
       (err, summaries) ->

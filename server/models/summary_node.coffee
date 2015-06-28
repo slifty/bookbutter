@@ -23,5 +23,11 @@ summaryNode = new Schema
   order:
     type: Number
     required: true
+  height:
+    type: Number
+    required: true
+  maxHeight:
+    type: Number
+    required: true
 
 module.exports = mongoose.model 'SummaryNode', summaryNode

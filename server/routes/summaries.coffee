@@ -6,6 +6,7 @@ class Summaries
   @init: (app) ->
     app.get '/summaries/:id', @get
     app.get '/summaries/:id/jobs', @getJobs
+    app.post '/summaries/:id/jobs/summarize', @summarize
 
   @getJobs: (req, res, next) ->
     Step(
@@ -14,8 +15,11 @@ class Summaries
         return
       (err, summaryNodes) ->
         if err then return next err
-        graph = Summaries._buildGraph(summaryNodes)
-        jobs = Summaries._getJobs(graph)
+        try
+          graph = Summaries._buildGraph(summaryNodes)
+          jobs = Summaries._getJobs(graph)
+        catch e
+          console.log e
         res.json jobs
     )
 
@@ -29,21 +33,70 @@ class Summaries
         res.json Summaries._buildGraph(summaryNodes)
     )
 
+  @summarize: (req, res, next) ->
+    Step(
+      ->
+        paragraphIds = req.query.ids.split ','
+        SummariesModel.find {
+          summaryId: req.params.id,
+          _id: { $in: paragraphIds },
+          parentId: { $exists: false } }, @
+        return
+      (err, @summaryNodes) ->
+        throw err if err
+        if _.isEmpty(@summaryNodes)
+          return res.json 'lulz'
+
+        newSummary = new SummariesModel(
+          text: req.body.text
+          compression: (@summaryNodes[0].height + 1) / (@summaryNodes[0].maxHeight)
+          summaryId: @summaryNodes[0].summaryId
+          bookId: @summaryNodes[0].bookId
+          order: 0
+          height: @summaryNodes[0].height + 1
+          maxHeight: @summaryNodes[0].maxHeight
+        )
+        newSummary.save @
+        return
+      (err, summaryNode) ->
+        throw err if err
+        group = @group()
+        for summaryNodeItem in @summaryNodes
+          SummariesModel.findByIdAndUpdate summaryNodeItem._id, {
+            $set: {
+              parentId: summaryNode._id
+            }
+          }, group()
+        return
+      (err) ->
+        if err then return next err
+        res.json 'yay'
+    )
+
+
   @_getJobs: (graph) ->
     # use iterative deepening to find the first level with two nodes that do not have parents
     level = 0
     paragraphs = graph
     jobs = []
+    jobIds = {}
     while jobs.length < 2
       # if next level is empty, no more jobs
       if _.isEmpty(paragraphs) then return []
 
       children = []
       for paragraph in paragraphs
-        if not paragraph.parentId?
+        if not paragraph.parentId? and not jobIds[paragraph._id.toString()]
           jobs.push paragraph
-        else
+          jobIds[paragraph._id.toString()] = true
+        else if paragraph?.parent
           children.push paragraph.parent
+        else
+          # do nothing
+
+      # if current level complete and can't find two jobs, must be root
+      if jobs.length is 1 then return []
+
       paragraphs = paragraphs.concat(children)
 
     return [ jobs[0], jobs[1] ]
@@ -64,7 +117,7 @@ class Summaries
       # connecting a leaf node to the graph involves adding ancestors until there are no more parents left
       node = leafNode
       while node.parentId?
-        node.parent = summaryNodeIndex[leafNode.parentId]
+        node.parent = summaryNodeIndex[node.parentId]
         node = node.parent
 
     return leafNodes
