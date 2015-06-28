@@ -39,6 +39,30 @@ class Books
         order = 0
         maxHeight = Math.ceil(Math.log(applicableLeaves.length))
 
+        console.log applicableLeaves.length % 2
+        if applicableLeaves.length % 2 isnt 0
+          # we need to create a parent for the last item
+          parent = new Summaries
+            text: applicableLeaves[applicableLeaves.length - 1].text
+            compression: 1 / (maxHeight)
+            summaryId: @id
+            bookId: req.params.id
+            order: 0
+            height: 1
+            maxHeight: maxHeight
+          parent.save group()
+          child = new Summaries
+            text: applicableLeaves[applicableLeaves.length - 1].text
+            compression: 0
+            summaryId: @id
+            bookId: req.params.id
+            order: order++
+            height: 0
+            maxHeight: maxHeight
+          child.save group()
+
+          applicableLeaves = applicableLeaves.slice(0, -1)
+
         for applicableLeaf in applicableLeaves
           leaf = new Summaries
             text: applicableLeaf.text
