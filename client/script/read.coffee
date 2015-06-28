@@ -4,7 +4,7 @@ $ () ->
   summaryId = 0
   bookId = 0
 
-  # THIS IS ALL A HACK
+  #THIS IS A HACK
   # Load the first book
 
   $.get('books')
@@ -44,36 +44,66 @@ $ () ->
     # Step 3 is to distribute those nodes
     # Step 4 is to select the nodes
 
+    # Generate Graph
+    heights = [[],[],[],[],[],[],[],[],[]]
+    for node in summary
+      height = node.height
+      order = node.order
+      heights[height][order] = node
+
     # Get base compression
     integrity_levels = [100,50,25,12.5,6,3,1.5,.75]
     base_level = 100
+    base_level_index = 0
     for integrity_level in integrity_levels
       if integrity > integrity_level
         break
       base_level = integrity_level
+      base_level_index = _j
 
     # Node count of higher levels of compression
-    nodeCount = Math.ceil(summary.length * (base_level / 100))
+    nodeCount = Math.ceil(heights[0].length * (base_level / 100))
     difference = base_level - integrity
     smallerNodes = Math.floor(difference / 100 * nodeCount)
     if(smallerNodes == 0)
       skipLimit = nodeCount + 1
     else
-      skipLimit = Math.floor(nodeCount / (smallerNodes + 1))
+      skipLimit = Math.floor(nodeCount / smallerNodes)
+      # Skip must be even right now
+      skipLimit = skipLimit + skipLimit % 2
 
     compressionMatrix = []
     skipCounter = 0
     for x in [1...nodeCount] by 1
       if(skipCounter == skipLimit)
-        compressionMatrix.push base_level / 2
-        _j++
+        compressionMatrix.push base_level_index + 1
+        _k++
         skipCounter = 0
       else
-        compressionMatrix.push base_level
-      skipCounter++
+        compressionMatrix.push base_level_index
+        skipCounter++
 
-    $("#integrityLevelSelect").change ()->
-      integrity = $("#integrityLevel").val()
-      renderSummary summary, integrity
+
+    # Generate Text
+    console.log base_level_index
+    first = heights[base_level_index]
+    second = heights[base_level_index + 1]
+    text = []
+    counter = 0
+
+    for level in compressionMatrix
+      if level == base_level_index
+        text.push first[counter]
+      if level == base_level_index + 1
+        text.push second[Math.floor(counter / 2)]
+        counter++
+      counter++
+
+    console.log text
+
+
+  $("#integrityLevelSelect").change ()->
+    integrity = $("#integrityLevelSelect").val()
+    renderSummary summary, integrity
 
   #END HACK
